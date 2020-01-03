@@ -32,3 +32,13 @@ browser.get('http://www.baidu.com/')
 # Note: make sure the page is visible
 # Note: make sure the page is visible
 # Note: make sure the page is visible
+
+# FQA
+
+## 'ascii' codec can't decode byte 0xe5
+```python
+import sys
+...
+reload(sys)
+sys.setdefaultencoding('utf8')
+```

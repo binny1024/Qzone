@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Time : 2020/1/2 11:46
 # @Author : xubinbin
+import sys
 
 from time import sleep, time
 from selenium import webdriver
@@ -12,6 +13,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 import traceback
+
 
 def set_message(name, qq):
     # qq = 270067992
@@ -64,12 +66,15 @@ def set_message(name, qq):
         print("写留言")
 
         driver.find_element_by_xpath("/html/body").send_keys(name + "元旦快乐!python 自动留言脚本测试 -- 请自行删除--抱歉")
+        waiting_for_page_finish(2)
         driver.switch_to.parent_frame()
         if leave_msg:
             driver.find_element_by_id("btnPostMsg").click()
+        waiting_for_page_finish(2)
         return
     except Exception as e:
         print("最终没有留言....")
+        print(traceback.format_exc())
 
 
 """等待页面加载"""
@@ -113,6 +118,8 @@ def login_qzone(url):
 
 
 if __name__ == "__main__":
+    reload(sys)
+    sys.setdefaultencoding('utf8')
     leave_msg = False
     # 创建Chrome浏览器的一个Options实例对象
     chrome_options = Options()
@@ -152,18 +159,18 @@ if __name__ == "__main__":
         )
         driver.switch_to.frame('app_canvas_frame')
         print('查找提到的人....')
-        # WebDriverWait(driver, 10, 0.5).until(
-        #     EC.presence_of_element_located((By.ID, 'QM_Mood_Poster_Container'))
-        # )
-        # print('1')
-        # WebDriverWait(driver, 10, 0.5).until(
-        #     EC.presence_of_element_located((By.CLASS_NAME, 'qz-poster-ft'))
-        # )
-        # print('2')
-        # WebDriverWait(driver, 10, 0.5).until(
-        #     EC.presence_of_element_located((By.CLASS_NAME, 'qz-poster-attach'))
-        # )
-        # print('3')
+        WebDriverWait(driver, 10, 0.5).until(
+            EC.presence_of_element_located((By.ID, 'QM_Mood_Poster_Container'))
+        )
+        print('1')
+        WebDriverWait(driver, 10, 0.5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'qz-poster-ft'))
+        )
+        print('2')
+        WebDriverWait(driver, 10, 0.5).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'qz-poster-attach'))
+        )
+        print('3')
         """
         将 iframe中的地址复制出来,
         然后,在浏览区使用 xpath 定位
@@ -178,14 +185,16 @@ if __name__ == "__main__":
         # )
         # ele = driver.find_element_by_class_name('at')
         print('找到了提到的人....')
-        waiting_for_page_finish(10) # 这个地方时间长一点,等待页面渲染完成
+        waiting_for_page_finish(10)  # 这个地方时间长一点,等待页面渲染完成
         driver.find_element_by_class_name('at').click()
         driver.find_element_by_class_name('at').click()
         waiting_for_page_finish(10)
         # 获取 好友的列表狂,使用列表,然后在使用 集合去重
         friend_qq = []
         friend_name = []
-
+        WebDriverWait(driver, 10, 1).until(
+            EC.presence_of_element_located((By.CLASS_NAME, 'friend_list'))
+        )
         for i in range(0, 13):
             print("i = " + str(i))
             top = 400 * (i + 1)
@@ -201,9 +210,9 @@ if __name__ == "__main__":
                     friend_qq.append(li.get_attribute('data-uin'))
                     friend_name.append(li.text)
         qq_num = set(friend_qq)
-        friend_counts  =  len(qq_num)
-        for i in range(0,friend_counts):
-            print(friend_name[i]+" "+friend_qq[i]+ " index = "+ str(i))
+        friend_counts = len(qq_num)
+        for i in range(0, friend_counts):
+            print(friend_name[i] + " " + friend_qq[i] + " index = " + str(i))
             set_message(friend_name[i], friend_qq[i])
 
     except Exception as e:
