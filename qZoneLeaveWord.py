@@ -25,7 +25,7 @@ def set_message(name, qq):
         刚进空间,如果会跳出一个 '我知道了' 按钮,则点击一下该按钮
         不点击是否可以执行后面逻辑
         """
-        WebDriverWait(driver, 10, 0.5).until(
+        WebDriverWait(driver, 20, 0.5).until(
             EC.presence_of_element_located(
                 (By.TAG_NAME, "我知道了")
             )
@@ -53,7 +53,7 @@ def set_message(name, qq):
         print("查找 是否开通 异常...")
 
     # 找留言板
-    print("未在主页的主界面发现--留言模块--")
+    # print("未在主页的主界面发现--留言模块--")
     try:
         waiting_for_page_finish(1)
         """
