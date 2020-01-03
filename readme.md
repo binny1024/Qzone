@@ -28,7 +28,9 @@ browser.get('http://www.baidu.com/')
 ```
 
 # Qzone
-获取所有的QQ好友,批量留言,检查访问权限等,可扩展
+
+Get all QQ friends, batch comments, check access permissions, etc., expandable
+
 # Note: make sure the page is visible
 # Note: make sure the page is visible
 # Note: make sure the page is visible
