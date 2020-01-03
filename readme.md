@@ -1,6 +1,10 @@
 # Py3Utils
 py3 scripting tools, including crawling tiger-teeth live stream, QQ space bulk message, increase the number of visits, etc.
 
+# Qzone
+
+Get all QQ friends, batch comments, check access permissions, etc., expandable
+
 # Environment
 2, install selenium
 ```
@@ -27,9 +31,6 @@ browser = webdriver.Chrome()
 browser.get('http://www.baidu.com/')
 ```
 
-# Qzone
-
-Get all QQ friends, batch comments, check access permissions, etc., expandable
 
 # Note: make sure the page is visible
 # Note: make sure the page is visible
@@ -40,7 +41,7 @@ Get all QQ friends, batch comments, check access permissions, etc., expandable
 ## 'ascii' codec can't decode byte 0xe5
 ```python
 import sys
-...
+# ...
 reload(sys)
 sys.setdefaultencoding('utf8')
 ```
