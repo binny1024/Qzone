@@ -19,6 +19,11 @@ def set_message(name, qq):
     # qq = 270067992
     driver.get("https://user.qzone.qq.com/" + str(qq))
     waiting_for_page_finish(2)
+    WebDriverWait(driver, 10, 0.5).until(
+        EC.presence_of_element_located(
+            (By.TAG_NAME, "我知道了")
+        )
+    )
     try:
         """
         刚进空间,如果会跳出一个 '我知道了' 按钮,则点击一下该按钮
